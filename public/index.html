@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/chronos-timeline-md@latest/dist/iife-entry.global.js"></script>
+   <meta charset="UTF-8">
+  </head>
+  <body style="background-color:lightgrey">
+    <h1>Presentations given at the
+      <a href="https://recurse.com/">
+      Recurse Center
+      </a>
+    </h1>
+    Click on a presentation to see its slide deck.
+    <br/>
+    <div id="timeline-container"></div>
+    <br/>
+    <small>(timeline courtesy Claire Froelich's <a href="https://clairefro.github.io/chronos-timeline-md/">Chronos Timeline</a>)</small>
 
+    <script type="module">
+      import { ChronosTimeline } from "https://unpkg.com/chronos-timeline-md";
+
+      const markdownSource = `
+> NOTODAY
+- [2025-08-22] Claude vs Little Bobby Tables
+- [2025-08-26] ~70 years of programming in 24 languages
+- [2025-09-05] Hershey font rendering in Plush
+- [2025-09-09] ML to bootstrap an LLM coding pipeline
+- [2025-09-26] Hacking Mathematical Structures
+- [2025-10-10] Calder! an unordered language
+- [2025-10-17] Tricky Boundary Decisions w/ Bézier booleans
+- [2025-10-22] Totally Béziers: Deepdive
+- [2025-10-30] (nontechnical) Ways of Welding
+`
+
+      const html = [
+"https://gist.github.com/demaere-oiie/b37c99c09d1ed35ec977ee2ff11249ef",
+"https://recurse.zulipchat.com/user_uploads/13/iE1B8Psr18tmKSqZ0LcKVGmF/PLIG.pdf",
+"https://github.com/demaere-oiie/plush/blob/fe2e55f07b44d0f7249c4f82e0911fc1df6e73da/examples/hershey_font.psh#L17",
+"https://recurse.zulipchat.com/user_uploads/13/y0QOF0vm9ADOuyDp2XujrrrD/mlforllm.pdf",
+"https://recurse.zulipchat.com/user_uploads/13/J_YQDHZs3MGvnNQgOjxjdpkP/hackmathstruct.pdf",
+"https://github.com/demaere-oiie/calder",
+"https://recurse.zulipchat.com/user_uploads/13/fF_Pk5meX43_wy5PcK6sUEGh/TBD.pdf",
+"https://recurse.zulipchat.com/user_uploads/13/vRTFO_VnVgfGAPmV2mCBdoNb/tbdplus.pdf",
+"https://recurse.zulipchat.com/user_uploads/13/mx8ERDTFjsKzrIXmGAXUT-P_/wow.pdf",
+]
+
+      const timeline = new ChronosTimeline({
+        container: document.getElementById("timeline-container"),
+        settings: { align: "center", selectedLocale: "en" },
+      });
+      
+      timeline.render(markdownSource);
+      
+      timeline.on("select", (event) => {
+        const id = event.items[0]
+        for(var i=0; i<timeline.items.length; i++) {
+            if(id == timeline.items[i].id) {
+                window.open(html[i], "Foo");
+                break;
+            }
+        }
+      });
+    </script>
+
+  </body>
+</html>
